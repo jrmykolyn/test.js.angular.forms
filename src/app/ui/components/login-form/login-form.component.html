@@ -1,3 +1,7 @@
-<p>
-  login-form works!
-</p>
+<form>
+  <label for="username">Username</label>
+  <input type="text" id="username" (keyup)="updateUsername($event)" />
+  <label for="password">Password</label>
+  <input type="password" id="password" (keyup)="updatePassword($event)" />
+  <input type="submit" value="Submit" />
+</form>
