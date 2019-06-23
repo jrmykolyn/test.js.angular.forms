@@ -1,7 +1,19 @@
-<form (submit)="onSubmit($event)">
-  <label for="username">Username</label>
-  <input type="text" id="username" (keyup)="updateUsername($event)" />
-  <label for="password">Password</label>
-  <input type="password" id="password" (keyup)="updatePassword($event)" />
-  <input type="submit" value="Submit" />
-</form>
+<div class="login-form-wrapper">
+  <div class="login-form-wrapper__inner">
+    <form class="login-form" (submit)="onSubmit($event)">
+      <div class="login-form__inner">
+        <div>
+          <label for="username">Username</label>
+          <input type="text" id="username" (keyup)="updateUsername($event)" />
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input type="password" id="password" (keyup)="updatePassword($event)" />
+        </div>
+        <div>
+          <input type="submit" value="Submit" />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
