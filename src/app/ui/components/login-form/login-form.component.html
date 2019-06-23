@@ -1,4 +1,4 @@
-<form>
+<form (submit)="onSubmit($event)">
   <label for="username">Username</label>
   <input type="text" id="username" (keyup)="updateUsername($event)" />
   <label for="password">Password</label>

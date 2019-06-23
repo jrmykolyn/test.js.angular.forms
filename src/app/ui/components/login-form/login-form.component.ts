@@ -21,4 +21,32 @@ export class LoginFormComponent implements OnInit {
   updatePassword(e) {
     this.data.password = e.target.value;
   }
+
+  isValid(data): boolean {
+    return Object.keys(data)
+      .reduce((isValid: boolean, key: string) => {
+        if (!isValid) return isValid;
+
+        const value = data[key];
+
+        switch (key) {
+          case 'username':
+            return !!(value && value.length >= 3);
+          case 'password':
+            return !!(value && value.length >= 3);
+          default:
+            return true;
+        }
+      }, true);
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+
+    if (this.isValid(this.data)) {
+      console.log('__ DATA IS VALID');
+    } else {
+      console.log('__ DATA IS NOT VALID');
+    }
+  }
 }
