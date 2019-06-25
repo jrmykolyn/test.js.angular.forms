@@ -4,11 +4,11 @@
       <div class="login-form__inner">
         <div>
           <label for="username">Username</label>
-          <input type="text" id="username" (keyup)="updateUsername($event)" />
+          <input type="text" id="username" [formControl]="form.controls.username" />
         </div>
         <div>
           <label for="password">Password</label>
-          <input type="password" id="password" (keyup)="updatePassword($event)" />
+          <input type="password" id="password" [formControl]="form.controls.password" />
         </div>
         <div>
           <input type="submit" value="Submit" />
