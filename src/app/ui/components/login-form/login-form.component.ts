@@ -16,13 +16,24 @@ export class LoginFormComponent {
   constructor(
     private cache: CacheService,
   ) {
+    const cachedData = this.cache.has(this.id) ? this.cache.get(this.id) : {};
+    const { username = '', password = '' } = cachedData;
+
     this.form = new FormGroup({
-      username: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
+      username: new FormControl(username, [Validators.required]),
+      password: new FormControl(password, [Validators.required]),
     });
+
+    this.form.controls.username.valueChanges.subscribe((v) => this.cache.add(this.id, this.serialize(this.form)));
+    this.form.controls.password.valueChanges.subscribe((v) => this.cache.add(this.id, this.serialize(this.form)));
 
     // Expose LoginFormComponent for debugging purposes.
     (window as any).__FORM__ = this;
+  }
+
+  serialize(form) {
+    return Object.keys(form.controls)
+      .reduce((acc, key) => ({ ...acc, [key]: form.controls[key].value }), {});
   }
 
   isValid(data): boolean {
@@ -46,8 +57,7 @@ export class LoginFormComponent {
   onSubmit(e) {
     e.preventDefault();
 
-    const data = Object.keys(this.form.controls)
-      .reduce((acc, key) => ({ ...acc, [key]: this.form.controls[key].value }), {});
+    const data = this.serialize(this.form);
 
     if (this.isValid(data)) {
       console.log('__ DATA IS VALID');
