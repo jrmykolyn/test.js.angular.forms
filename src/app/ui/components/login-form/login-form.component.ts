@@ -24,8 +24,10 @@ export class LoginFormComponent {
       password: new FormControl(password, [Validators.required]),
     });
 
-    this.form.controls.username.valueChanges.subscribe((v) => this.cache.add(this.id, this.serialize(this.form)));
-    this.form.controls.password.valueChanges.subscribe((v) => this.cache.add(this.id, this.serialize(this.form)));
+    // Subscribe to input field changes; update cache.
+    const put = (v) => this.cache.add(this.id, this.serialize(this.form));
+    this.form.controls.username.valueChanges.subscribe(put);
+    this.form.controls.password.valueChanges.subscribe(put);
 
     // Expose LoginFormComponent for debugging purposes.
     (window as any).__FORM__ = this;
