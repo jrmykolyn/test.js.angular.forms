@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { CacheService } from '../../../../services/cache/cache.service';
 
 
@@ -14,14 +14,25 @@ export class LoginFormComponent {
   form: any
 
   constructor(
+    private formBuilder: FormBuilder,
     private cache: CacheService,
   ) {
     const cachedData = this.cache.has(this.id) ? this.cache.get(this.id) : {};
     const { username = '', password = '' } = cachedData;
 
+    /*
     this.form = new FormGroup({
       username: new FormControl(username, [Validators.required]),
       password: new FormControl(password, [Validators.required]),
+    });
+    */
+
+    // NOTE: The `formBuilder`-constructed form group below is
+    // exactly equivalent to FormGroup/FormControl-constructed
+    // form above.
+    this.form = this.formBuilder.group({
+      username: this.formBuilder.control(username, [Validators.required]),
+      password: this.formBuilder.control(password, [Validators.required]),
     });
 
     // Subscribe to input field changes; update cache.
