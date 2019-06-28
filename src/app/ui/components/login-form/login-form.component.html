@@ -1,14 +1,14 @@
 <div class="login-form-wrapper">
   <div class="login-form-wrapper__inner">
-    <form class="login-form" (submit)="onSubmit($event)">
+    <form class="login-form" [formGroup]="form" (submit)="onSubmit($event)">
       <div class="login-form__inner">
         <div>
           <label for="username">Username</label>
-          <input type="text" id="username" [formControl]="form.controls.username" />
+          <input type="text" id="username" formControlName="username" />
         </div>
         <div>
           <label for="password">Password</label>
-          <input type="password" id="password" [formControl]="form.controls.password" />
+          <input type="password" id="password" formControlName="password" />
         </div>
         <div>
           <input type="submit" value="Submit" />
